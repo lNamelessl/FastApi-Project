@@ -11,11 +11,11 @@ from ..import models,schema
 
 router = APIRouter(prefix="/posts",tags=["posts"])
 
-@router.get("/m")
+@router.get("/", status_code=status.HTTP_200_OK)
 def get_message():
     return {"message":"Hello,World"}
 
-@router.get("/",response_model=List[schema.PostOut])
+@router.get("/m",response_model=List[schema.PostOut])
 def post(db: Session = Depends(get_db),
     current_user: int = Depends(oauth2.get_current_user),limit:int = 5,skip:int=0,search:Optional[str]="" ):
     posts = db.query(models.Post).filter(models.Post.title.contains(search)).limit(limit).offset(skip).all()

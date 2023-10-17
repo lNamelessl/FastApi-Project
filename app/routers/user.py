@@ -7,8 +7,7 @@ from ..import models,schema,utils,oauth2
 router = APIRouter(prefix="/users",tags=["users"])
 
 @router.post("/" ,status_code=status.HTTP_201_CREATED,response_model=schema.UserOut )
-def create_user(user: schema.UserCreate,db: Session = Depends(get_db),
-                current_user: int = Depends(oauth2.get_current_user) ):
+def create_user(user: schema.UserCreate,db: Session = Depends(get_db), ):
     hashed_password = utils.hash(user.password)
     user.password = hashed_password
     new_user = models.User(**user.model_dump())
