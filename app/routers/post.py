@@ -1,4 +1,3 @@
-from turtle import mode
 from typing import List, Optional
 from fastapi import APIRouter,HTTPException,status,Response,Depends
 from sqlalchemy import func
